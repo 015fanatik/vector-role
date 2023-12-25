@@ -1,0 +1,6 @@
+---
+# defaults file for vector-role
+clickhouse_table: "logs_table"
+clickhouse_db: "logs"
+clickhouse_url: "http://10.0.1.8:8123"
+vector_conf: "./templates/vector.yaml.j2"

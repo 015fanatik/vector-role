@@ -1,0 +1,20 @@
+---
+
+- name: Get vector distrib
+  ansible.builtin.get_url:
+    url: "https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-1.{{ ansible_architecture }}.rpm"
+    dest: "vector-{{ vector_version }}.rpm"
+- name: Install vector packages
+  become: true
+  ansible.builtin.yum:
+    name:
+      - vector-{{ vector_version }}.rpm
+  notify: Restart vector service
+
+- name:  jinja2 add config
+  ansible.builtin.template:
+     mode: 0644
+     src: "{{ vector_conf }}"
+     dest: "{{ vector_data_dir }}/vector.yaml"
+     owner: vector
+     group: vector
